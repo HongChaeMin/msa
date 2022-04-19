@@ -27,7 +27,8 @@ public class SecondServiceController {
     }
 
     @GetMapping("/custom-filter")
-    public String check(){
+    public String check(HttpServletRequest request){
+        log.info("Server port : {}", request.getServerPort());
         return "hi check second";
     }
 

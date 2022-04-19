@@ -14,6 +14,8 @@ import reactor.core.publisher.Mono;
 @Log4j2
 public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Config> {
 
+    // 자바로 하는 커스텀 필터 설정
+
     public CustomFilter() {
         super(Config.class);
     }

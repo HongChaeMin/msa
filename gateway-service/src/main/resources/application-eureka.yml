@@ -15,7 +15,7 @@ spring:
     gateway:
       routes:
         - id: first-service
-          uri: lb://MY-FIRST-SERVICE
+          uri: lb://MY-FIRST-SERVICE # eureka service에 가서 연결을 하겠다 / spring.application.name
           predicates:
             - Path=/first-service/**
           filters:

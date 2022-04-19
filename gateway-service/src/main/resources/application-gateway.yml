@@ -17,7 +17,7 @@ spring:
         - id: first-service
           uri: http://localhost:8081/
           predicates: # 조건절
-              - Path=/first-service/**
+              - Path=/first-service/** # 사용자 path가 지정한 path이면
           filters: # filter를 추가해주면 request header와 response header에 값 추가할 수 있음
             - AddRequestHeader=first-request, first-request-header2
             - AddResponseHeader=first-response, first-response-header2

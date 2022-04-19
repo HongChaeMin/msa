@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 @Log4j2
 public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Config> {
 
-    // 자바로 하는 커스텀 필터 설정
+    // 커스텀 필터 설정
 
     public CustomFilter() {
         super(Config.class);
@@ -22,6 +22,8 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
 
     @Override
     public GatewayFilter apply(Config config) {
+        // Custom Pre Filter. Suppose we can extract JWT and perform Authentication
+
         // ex1)
         //filter에서 하고 싶은 내용을 재정의
         //pre filter 동작
@@ -30,6 +32,8 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
             ServerHttpResponse response = exchange.getResponse();
 
             log.info("Custom PRE filter : request id -> {}", request.getId());
+
+            // Custom Post Filter.Suppose we can call error response handler based on error code.
 
             //post filter 동작
             return chain.filter(exchange).then(Mono.fromRunnable(()->{  //스프링5에서 지원하는 기능으로 비동기로 값을 전달할때 사용되는 객체
@@ -53,6 +57,7 @@ public class CustomFilter extends AbstractGatewayFilterFactory<CustomFilter.Conf
     }
 
     public static class Config {
+        // Put the configuration properties
         // configuration 정보 입력
     }
 

@@ -13,8 +13,6 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Config> {
 
-    // 자바로 하는 글로벌 필터 설정
-
     public GlobalFilter() {
         super(Config.class);
     }
@@ -32,6 +30,7 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
             if(config.isPreLogger()){
                 log.info("Global filter Start : request id -> {}", request.getId());
             }
+
             // post filter 동작
             return chain.filter(exchange).then(Mono.fromRunnable(()->{
                 if(config.isPostLogger()){
@@ -42,9 +41,18 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
         });
     }
 
+    // spring:
+    //  cloud:
+    //    gateway:
+    //      default-filters:
+    //        - name: GlobalFilter  # Global filter class 파일 명
+    //          args: # 파라미터로 전달될 값 정의
+    //            message: hi global gateway
+    //            preLogger: true
+    //            postLogger: true
+
     @Data
     public static class Config{
-        // configuration 정보 입력
         private String Message;
         private boolean preLogger;
         private boolean postLogger;

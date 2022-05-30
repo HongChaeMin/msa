@@ -10,7 +10,12 @@ spring:
       settings:
         web-allow-others: true
       path: /h2-console
-
+  datasource:
+    hikari:
+      driver-class-name: org.h2.Driver
+      jdbc-url: jdbc:h2:mem:test
+      username: sa
+      password:
 eureka:
   instance: # eureka 에서는 처음 설정한 0으로 나오기 때문에 겹쳐서 보임 -> id 지정 필요
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}

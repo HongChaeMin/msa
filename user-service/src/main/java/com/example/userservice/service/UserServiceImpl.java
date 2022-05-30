@@ -7,7 +7,6 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,7 +17,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto createUser(UserDto userDto) {
-        userDto.setUserId(UUID.randomUUID().toString().substring(0, 6));
+        userDto.setUserId(UUID.randomUUID().toString().substring(0, 7));
 
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -27,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(userEntity);
 
-        return userDto;
+        return modelMapper.map(userEntity, UserDto.class);
     }
 
 }

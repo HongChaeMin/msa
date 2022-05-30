@@ -24,9 +24,11 @@ public class UserController {
     private final Greeting greeting;
     private final UserService userService;
 
-    @GetMapping("/heath-check")
+    // api gateway 를 통해서 접근하면 앞에 /user-service/ 라는 uri 가 붙어서 404 error가 뜨는거임
+    // 그래서 /user-service/ 를 붙이면 해결됨
+    @GetMapping("/user-service/heath-check")
     public String status() {
-        return "It's Working in User Service";
+        return String.format("It's Working in User Service on PORT %s", env.getProperty("local.server.port"));
     }
 
     @GetMapping("/welcome")
